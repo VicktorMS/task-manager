@@ -5,11 +5,11 @@ import os
 
 
 class TaskView:
-    def prompt_for_task_id(self):
+    def prompt_for_task(self):
         title = input("Digite o título da Tarefa: ")
         description = input(f"Digite uma descrição para Tarefa: (Opcional) ")
         deadline = input(f"Digite um prazo para Tarefa: (AAAA-MM-DD) ")
-        urgency_level = input(f"Digite uma descrição para Tarefa: (Opcional) ")
+        urgency_level = input(f"Digite a prioridade para Tarefa: (1 a 5) ")
         
         return title, description, deadline, urgency_level
     
@@ -29,13 +29,13 @@ class TaskView:
         
     def show_menu(self):
         print("\n" + "=" * 20 + " Menu " + "=" * 20)
-        print(f"{Fore.GREEN}1. Adicionar Tarefa{Style.RESET_ALL}")
-        print(f"{Fore.GREEN}2. Listar Tarefas{Style.RESET_ALL}")
-        print(f"{Fore.GREEN}3. Marcar Tarefa como Concluída{Style.RESET_ALL}")
-        print(f"{Fore.GREEN}4. Remover Tarefa{Style.RESET_ALL}")
-        print(f"{Fore.GREEN}5. Sair{Style.RESET_ALL}")
-        
         while True:
+            print(f"{Fore.GREEN}1. Adicionar Tarefa{Style.RESET_ALL}")
+            print(f"{Fore.GREEN}2. Listar Tarefas{Style.RESET_ALL}")
+            print(f"{Fore.GREEN}3. Marcar Tarefa como Concluída{Style.RESET_ALL}")
+            print(f"{Fore.GREEN}4. Remover Tarefa{Style.RESET_ALL}")
+            print(f"{Fore.GREEN}5. Sair{Style.RESET_ALL}")
+        
             try:
                 choice = input(f"{Fore.YELLOW}Escolha uma opção: {Style.RESET_ALL}")
                 choice_int = int(choice)
@@ -43,11 +43,11 @@ class TaskView:
                     return str(choice_int)
                 else:
                     os.system('cls' if os.name=='nt' else 'clear')
-                    print("Opção inválida. Tente novamente.")
-                    time.sleep(2)
+                    print("Opção inválida. Tente novamente.", end='\n\n')
+                    time.sleep(1)
             except ValueError:
                 os.system('cls' if os.name=='nt' else 'clear')
-                print("Opção inválida. Tente novamente.")
+                print("Opção inválida. Tente novamente.", end='\n\n')
                 time.sleep(2)
 
     def show_title(self):

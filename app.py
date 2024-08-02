@@ -15,29 +15,35 @@ from src.task_view import TaskView
 
 
 class TaskApp:
-    def __init__(self):
-        self.task_view = TaskView()
-        self.task_controller = TaskController()
-        self.task_factory = TaskFactory()
+    def __init__(self, view, controller, factory):
+        self.view = view
+        self.controller = controller
+        self.factory = factory
     
     def run(self):
-        self.task_view.show_title()
+        self.view.show_title()
         while True:
-            choice = self.task_view.show_menu()
+            choice = self.view.show_menu()
             if choice == "1":
-                title, description, deadline, urgency_level = self.task_view.prompt_for_task()
-                task = self.task_factory.create_task(title, description, deadline, urgency_level)
-                self.task_controller.add_task(task)
+                title, description, deadline, urgency_level = self.view.prompt_for_task()
+                self.factory.create_task(title, description, deadline, urgency_level)
+                
             elif choice == "2":
-                tasks = self.task_controller.list_tasks()
-                self.task_view.display_tasks(tasks)
+                tasks = self.factory.controller.list_tasks()
+                self.view.display_tasks(tasks)
+                
             elif choice == "3":
-                task_id = self.task_view.prompt_for_task_id()
+                task_id = self.view.prompt_for_task_id()
                 self.task_controller.mark_task_as_complete(task_id)
+                
             elif choice == "4":
-                task_id = self.task_view.prompt_for_task_id()
+                task_id = self.view.prompt_for_task_id()
                 self.task_controller.remove_task(task_id)
             elif choice == "5":
                 break
-            else:
-                print("Opcão inválida. Tente novamente.")
+            
+task_view = TaskView()
+task_controller = TaskController()
+task_factory = TaskFactory()
+task_app = TaskApp(task_view, task_controller, task_factory)
+task_app.run()

@@ -18,7 +18,7 @@ class Task():
 
     @urgency_level.setter
     def urgency_level(self, urgency_level):
-        if not (1 <= urgency_level <= 5):
+        if not (1 <= int(urgency_level) <= 5):
             raise ValueError('Urgency level must be between 1 and 5')
         self._urgency_level = urgency_level
 

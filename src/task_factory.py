@@ -8,6 +8,5 @@ class TaskFactory():
         self.task_counter = 0
         
     def create_task(self, title, description, deadline, urgency_level):
-        task = Task(self.task_counter, title, description, False, deadline, urgency_level)
+        self.controller.create_task(self.task_counter, title, description, deadline, urgency_level)
         self.task_counter += 1
-        return task
