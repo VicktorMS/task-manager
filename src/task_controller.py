@@ -1,4 +1,4 @@
-from src.model import Task
+from src.task_model import Task
 
 
 class TaskNotFoundException(Exception):
@@ -14,8 +14,8 @@ class TaskController():
     def __init__(self) -> None:
         self.tasks = []
         
-    def create_task(self, id, description, deadline, urgency_level):
-        task = Task(id, description, deadline, urgency_level)
+    def create_task(self, id, title, description, deadline, urgency_level):
+        task = Task(id, title, description, deadline, urgency_level)
         self.tasks.append(task)
         
     def list_tasks(self):
