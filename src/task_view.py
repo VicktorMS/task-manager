@@ -1,4 +1,7 @@
+import time
 from colorama import Fore, Style 
+import os
+
 
 
 class TaskView:
@@ -23,6 +26,7 @@ class TaskView:
     def display_task_not_found(self, task_id):
         print(f"Tarefa com ID {task_id} não pode ser encontrada :(")
         
+        
     def show_menu(self):
         print("\n" + "=" * 20 + " Menu " + "=" * 20)
         print(f"{Fore.GREEN}1. Adicionar Tarefa{Style.RESET_ALL}")
@@ -30,4 +34,32 @@ class TaskView:
         print(f"{Fore.GREEN}3. Marcar Tarefa como Concluída{Style.RESET_ALL}")
         print(f"{Fore.GREEN}4. Remover Tarefa{Style.RESET_ALL}")
         print(f"{Fore.GREEN}5. Sair{Style.RESET_ALL}")
-        return input(f"{Fore.YELLOW}Escolha uma opção: {Style.RESET_ALL}")
+        
+        while True:
+            try:
+                choice = input(f"{Fore.YELLOW}Escolha uma opção: {Style.RESET_ALL}")
+                choice_int = int(choice)
+                if choice_int in range(1, 6):
+                    return str(choice_int)
+                else:
+                    os.system('cls' if os.name=='nt' else 'clear')
+                    print("Opção inválida. Tente novamente.")
+                    time.sleep(2)
+            except ValueError:
+                os.system('cls' if os.name=='nt' else 'clear')
+                print("Opção inválida. Tente novamente.")
+                time.sleep(2)
+
+    def show_title(self):
+        print("\033[1;35m") 
+        print("""
+$$$$$$\ $$\   $$\ $$$$$$$$\ $$\   $$\ $$$$$$$$\ $$$$$$$$\ 
+\_$$  _|$$$\  $$ |$$  _____|$$$\  $$ |$$  _____|\__$$  __|
+  $$ |  $$$$\ $$ |$$ |      $$$$\ $$ |$$ |         $$ |   
+  $$ |  $$ $$\$$ |$$$$$\    $$ $$\$$ |$$$$$\       $$ |   
+  $$ |  $$ \$$$$ |$$  __|   $$ \$$$$ |$$  __|      $$ |   
+  $$ |  $$ |\$$$ |$$ |      $$ |\$$$ |$$ |         $$ |   
+$$$$$$\ $$ | \$$ |$$ |      $$ | \$$ |$$$$$$$$\    $$ |   
+\______|\__|  \__|\__|      \__|  \__|\________|   \__|""")
+        print('\033[0m')
+        print('Bem vindo ao gerenciador de tarefas!')
