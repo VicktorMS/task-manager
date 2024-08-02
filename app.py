@@ -17,7 +17,6 @@ from src.task_view import TaskView
 class TaskApp:
     def __init__(self, view, controller, factory):
         self.view = view
-        self.controller = controller
         self.factory = factory
     
     def run(self):
@@ -25,7 +24,7 @@ class TaskApp:
         while True:
             choice = self.view.show_menu()
             if choice == "1":
-                title, description, deadline, urgency_level = self.view.prompt_for_task()
+                title, description, deadline, urgency_level = self.view.prompt_for_create_task()
                 self.factory.create_task(title, description, deadline, urgency_level)
                 
             elif choice == "2":
