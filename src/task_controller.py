@@ -31,7 +31,7 @@ class TaskController():
         task = self.get_task_by_id(task_id)
         self.tasks_list.remove(task)
         
-    def mark_as_completed(self, task_id):
+    def mark_task_as_complete(self, task_id):
         task = self.get_task_by_id(task_id)
         task.mark_as_completed()
         return task

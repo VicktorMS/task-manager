@@ -9,13 +9,14 @@
 # Marcar Tarefa como Concluída: Permitir ao usuário marcar uma tarefa específica como concluída.
 # Remover Tarefa: Dar ao usuário a opção de remover uma tarefa da lista.
 
-from src.task_controller import TaskController
+from src.task_controller import TaskController, TaskNotFoundException
 from src.task_factory import TaskFactory
 from src.task_view import TaskView
+from src.utils.view_utils import ViewUtils
 
 
 class TaskApp:
-    def __init__(self, view, controller, factory):
+    def __init__(self, view, factory):
         self.view = view
         self.factory = factory
     
@@ -33,11 +34,18 @@ class TaskApp:
                 
             elif choice == "3":
                 task_id = self.view.prompt_for_task_id()
-                self.task_controller.mark_task_as_complete(task_id)
+                try:
+                    self.factory.controller.mark_task_as_complete(task_id)
+                except TaskNotFoundException:
+                    ViewUtils.display_error(f"Tarefa com ID {task_id} não foi encontrada")
                 
             elif choice == "4":
                 task_id = self.view.prompt_for_task_id()
-                self.task_controller.remove_task(task_id)
+                try:
+                    self.factory.controller.remove_task(task_id)
+                except TaskNotFoundException:
+                    ViewUtils.display_error(f"Tarefa com ID {task_id} não foi encontrada")
+                    
             elif choice == "5":
                 break
             
