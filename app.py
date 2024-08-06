@@ -11,8 +11,8 @@ class TaskApp:
         self.factory = factory
 
     def run(self):
-        self.view.show_title()
         while True:
+            self.view.show_title()
             self.handle_user_choice()
 
     def handle_user_choice(self):
@@ -26,6 +26,8 @@ class TaskApp:
         elif choice == "4":
             self.remove_task()
         elif choice == "5":
+            pass
+        elif choice == "0":
             sys.exit(0)
             return
 

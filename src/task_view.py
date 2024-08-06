@@ -13,7 +13,8 @@ class TaskView:
             2: "Listar Tarefas",
             3: "Marcar Tarefa como Concluída",
             4: "Remover Tarefa",
-            5: "Sair"
+            5: "Visualizar uma Tarefa",
+            0: "Sair"
         }
 
     def show_title(self):
