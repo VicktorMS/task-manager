@@ -1,3 +1,4 @@
+import sys
 from src.task_controller import TaskController, TaskNotFoundException
 from src.task_factory import TaskFactory
 from src.task_view import TaskView
@@ -25,6 +26,7 @@ class TaskApp:
         elif choice == "4":
             self.remove_task()
         elif choice == "5":
+            sys.exit(0)
             return
 
     def create_task(self):
@@ -46,6 +48,7 @@ class TaskApp:
         task_id = self.view.prompt_for_task_id()
         try:
             self.factory.controller.remove_task(task_id)
+            self.view.display_success_message(f"Tarefa com ID {task_id} removida com sucesso!")
         except TaskNotFoundException:
             ViewUtils.display_error(f"Tarefa com ID {task_id} não foi encontrada")
 

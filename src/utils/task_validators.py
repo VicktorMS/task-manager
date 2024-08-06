@@ -19,7 +19,7 @@ class TaskValidator:
         
     @staticmethod
     def validate_urgency_level(urgency_level):
-        if int(urgency_level) in range(1, 4):
+        if int(urgency_level) in range(1, 6):
             return True
         else:
             return False

@@ -8,7 +8,7 @@ class ViewUtils:
     @staticmethod
     def display_error(error):
         ViewUtils.console_clean()
-        print(f"{Fore.RED}{error}{Style.RESET_ALL}")
+        print(f"{Style.BRIGHT}{Fore.RED}{error}{Style.RESET_ALL}")
         time.sleep(1)
         ViewUtils.console_clean()
 
