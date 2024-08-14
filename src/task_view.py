@@ -2,7 +2,6 @@ from src.utils.task_validators import TaskValidator
 from src.utils.view_utils import ViewUtils
 from colorama import Fore, Style
 import time
-import os
 
 
 class TaskView:
@@ -17,6 +16,7 @@ class TaskView:
             0: "Sair"
         }
 
+    # Métodos para exibição de informações
     def show_title(self):
         print("\033[1;35m")
         print("""$$$$$$\ $$\   $$\ $$$$$$$$\ $$\   $$\ $$$$$$$$\ $$$$$$$$\ 
@@ -33,7 +33,7 @@ $$$$$$\ $$ | \$$ |$$ |      $$ | \$$ |$$$$$$$$\    $$ |
         self.clear_screen()
         self.print_title()
         self.print_menu_options()
-        return self.get_user_choice()
+        return self.get_user_choice(len(self.menu_options))
 
     def clear_screen(self):
         ViewUtils.console_clean()
@@ -45,12 +45,37 @@ $$$$$$\ $$ | \$$ |$$ |      $$ | \$$ |$$$$$$$$\    $$ |
         for key, value in self.menu_options.items():
             print(f"{Fore.GREEN}{key}. {value}{Style.RESET_ALL}")
 
-    def get_user_choice(self):
+    def display_tasks(self, tasks_list):
+        self.clear_screen()
+        self.print_title()
+        self.print_task_list(tasks_list)
+        ViewUtils.display_menu_prompt(self.show_menu)
+
+    def display_full_task(self, task):
+        self.clear_screen()
+        self.print_title()
+        self.print_task_detail(task)
+        ViewUtils.display_menu_prompt(self.show_menu)
+
+    def display_task_not_found(self, task_id):
+        self.clear_screen()
+        self.print_title()
+        print(f"Tarefa com ID {task_id} não pode ser encontrada :(")
+        ViewUtils.display_menu_prompt(self.show_menu)
+
+    def display_success_message(self, message):
+        ViewUtils.console_clean()
+        print(f"{Style.BRIGHT}{Fore.GREEN}{message}{Style.RESET_ALL}")
+        time.sleep(1)
+        ViewUtils.console_clean()
+
+    # Métodos de entrada do usuário
+    def get_user_choice(self, options_range=6):
         while True:
             try:
                 choice = input(f"{Fore.YELLOW}Escolha uma opção: {Style.RESET_ALL}")
                 choice_int = int(choice)
-                if choice_int in range(1, 6):
+                if choice_int in range(0, options_range):
                     return str(choice_int)
                 else:
                     ViewUtils.display_error("Opção inválida. Tente novamente.")
@@ -74,55 +99,7 @@ $$$$$$\ $$ | \$$ |$$ |      $$ | \$$ |$$$$$$$$\    $$ |
             except ValueError:
                 ViewUtils.display_error("ID inválido. Tente novamente.")
 
-    def display_tasks(self, tasks_list):
-        self.clear_screen()
-        self.print_title()
-        self.print_task_list(tasks_list)
-        ViewUtils.display_menu_prompt(self.show_menu)
-
-    def print_task_list(self, tasks_list):
-        table_header = "{:^6} | {:^6} | {:^6}".format("ID", "Status", "Title")
-        table_border = "-" * len(table_header)
-
-        print(table_border)
-        print(table_header)
-        print(table_border)
-
-        for task in tasks_list:
-            self.print_task(task)
-
-        print(table_border)
-
-    def print_task(self, task):
-        task_id = str(task.id).ljust(6)
-        task_status = str(task.status).ljust(6)
-        task_title = str(task.title).ljust(6)
-        print(f"{task_id} | {task_status} | {task_title}")
-
-    def display_full_task(self, task):
-        self.clear_screen()
-        self.print_title()
-        self.print_task_detail(task)
-        ViewUtils.display_menu_prompt(self.show_menu)
-
-    def print_task_detail(self, task):
-        print(f"ID: {task.id}, Titulo: {task.title}, Status: {task.status}")
-        print(f"Data de Criação: {task.created_at} | Prazo: {task.deadline} | Urgência: {task.urgency_level}")
-        print(f"Descrição: {task.description}")
-
-    def display_task_not_found(self, task_id):
-        self.clear_screen()
-        self.print_title()
-        print(f"Tarefa com ID {task_id} não pode ser encontrada :(")
-        ViewUtils.display_menu_prompt(self.show_menu)
-        
-    def display_success_message(self, message):
-        ViewUtils.console_clean()
-        print(f"{Style.BRIGHT}{Fore.GREEN}{message}{Style.RESET_ALL}")
-        time.sleep(1)
-        ViewUtils.console_clean()
-
-
+    # Métodos auxiliares para validação de dados
     def _get_valid_title(self):
         while True:
             title = input("Digite o nome da tarefa: ")
@@ -146,4 +123,29 @@ $$$$$$\ $$ | \$$ |$$ |      $$ | \$$ |$$$$$$$$\    $$ |
                 return urgency_level
             else:
                 ViewUtils.display_error("Nível de Urgência inválida. O valor deve ser entre 1 e 5. Tente novamente.")
+
+    # Metodos para exibição de detalhes da tarefa
+    def print_task_list(self, tasks_list):
+        table_header = "{:^6} | {:^6} | {:^6}".format("ID", "Status", "Title")
+        table_border = "-" * len(table_header)
+
+        print(table_border)
+        print(table_header)
+        print(table_border)
+
+        for task in tasks_list:
+            self.print_task(task)
+
+        print(table_border)
+
+    def print_task(self, task):
+        task_id = str(task.id).ljust(6)
+        task_status = str(task.status).ljust(6)
+        task_title = str(task.title).ljust(6)
+        print(f"{task_id} | {task_status} | {task_title}")
+
+    def print_task_detail(self, task):
+        print(f"ID: {task.id}, Titulo: {task.title}, Status: {task.status}")
+        print(f"Data de Criação: {task.created_at} | Prazo: {task.deadline} | Urgência: {task.urgency_level}")
+        print(f"Descrição: {task.description}")
 

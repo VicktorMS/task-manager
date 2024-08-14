@@ -2,6 +2,11 @@ from datetime import datetime
 # tarefa: ID da tarefa, descrição, data de criação, status, prazo final, urgência, entre outros atributos...
 
 class Task():
+    """
+    Representa uma tarefa no sistema. Possui título, descrição, data de criação,
+    status, prazo final e urgência.
+    """
+
     def __init__(self, id, title, description, status, deadline, urgency_level):
         self.id = id # Poderia usar um ID aleatório para cada tarefa
         self.title = title

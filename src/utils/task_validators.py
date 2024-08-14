@@ -1,6 +1,8 @@
 from datetime import datetime
 
-
+"""
+Classe para validar as tarefas
+"""
 class TaskValidator:
     @staticmethod
     def validate_title(title):
