@@ -26,6 +26,7 @@ class TaskApp:
         elif choice == "4":
             self.remove_task()
         elif choice == "5":
+            self.display_full_task()
             pass
         elif choice == "0":
             sys.exit(0)
@@ -51,6 +52,14 @@ class TaskApp:
         try:
             self.factory.controller.remove_task(task_id)
             self.view.display_success_message(f"Tarefa com ID {task_id} removida com sucesso!")
+        except TaskNotFoundException:
+            ViewUtils.display_error(f"Tarefa com ID {task_id} não foi encontrada")
+            
+    def display_full_task(self):
+        task_id = self.view.prompt_for_task_id()
+        try:
+            task = self.factory.controller.get_task_by_id(task_id)
+            self.view.display_full_task(task)
         except TaskNotFoundException:
             ViewUtils.display_error(f"Tarefa com ID {task_id} não foi encontrada")
 

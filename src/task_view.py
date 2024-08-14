@@ -31,6 +31,7 @@ $$$$$$\ $$ | \$$ |$$ |      $$ | \$$ |$$$$$$$$\    $$ |
 
     def show_menu(self):
         self.clear_screen()
+        self.show_title()
         self.print_title()
         self.print_menu_options()
         return self.get_user_choice(len(self.menu_options))
@@ -147,5 +148,5 @@ $$$$$$\ $$ | \$$ |$$ |      $$ | \$$ |$$$$$$$$\    $$ |
     def print_task_detail(self, task):
         print(f"ID: {task.id}, Titulo: {task.title}, Status: {task.status}")
         print(f"Data de Criação: {task.created_at} | Prazo: {task.deadline} | Urgência: {task.urgency_level}")
-        print(f"Descrição: {task.description}")
+        print(f"Descrição: {task.description}\n\n")
 

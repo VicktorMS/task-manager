@@ -36,7 +36,9 @@ class TaskController():
         task.mark_as_completed()
         return task
     
-    def update_task(self):
-        pass
+    def update_task(self, id, title, description, deadline, urgency_level):
+        self.tasks_list[id] = Task(id, title, description, False, deadline, urgency_level)
+        return self.tasks_list[id]
+         
     
     
